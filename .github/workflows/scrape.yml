@@ -26,14 +26,16 @@ jobs:
           cache: "npm"
           cache-dependency-path: scraper/package-lock.json
 
-      - name: Install scraper dependencies
-        working-directory: scraper
-        run: npm ci
+      - name: Install scraper dependencies (must be inside /scraper)
+        run: |
+          cd scraper
+          npm ci
+          node -e "console.log('axios resolved:', require.resolve('axios'))"
 
       - name: Run scraper
-        working-directory: scraper
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           TZ: America/Chicago
-        run: node scrape.js
-
+        run: |
+          cd scraper
+          node scrape.js
