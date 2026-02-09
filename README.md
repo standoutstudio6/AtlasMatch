@@ -1,22 +1,18 @@
-# AtlasMatch GitHub Actions Scraper (Option B)
+# AtlasMatch GitHub Actions Scraper (Option B + Robust npm)
 
-This package includes **all files needed** for Option B (including `scraper/package-lock.json`)
-so GitHub Actions can cache dependencies successfully.
+Includes `scraper/package-lock.json` (Option B) and a robust install step to work around
+occasional runner npm crashes like:
 
-## Where to put these files
-Unzip into the **root** of your repo so you have:
+> npm error Exit handler never called!
 
-- `scraper/` (Node scraper)
-- `.github/workflows/scrape.yml` (scheduled workflow)
+## Install
+Unzip into your repo root so these paths exist:
+- `scraper/`
+- `.github/workflows/scrape.yml`
 
-## Required GitHub Secret
-Create a repo secret named:
+## GitHub secret required
+- `FIREBASE_SERVICE_ACCOUNT` (paste the full Firebase service-account JSON)
 
-- `FIREBASE_SERVICE_ACCOUNT` = paste the full Firebase service-account JSON
-
-## Firestore targets
-- Collection: `jobs`
-- Document: `metadata/sync`
-
-## Run test
-GitHub → Actions → "Scheduled Job Scraper" → Run workflow
+## Firestore writes
+- `jobs` collection
+- `metadata/sync` doc
