@@ -26,12 +26,14 @@ jobs:
           cache: "npm"
           cache-dependency-path: scraper/package-lock.json
 
-      - name: Install dependencies
+      - name: Install scraper dependencies
         working-directory: scraper
-        run: npm ci || npm install
+        run: npm ci
 
-      - name: Execute scraper
+      - name: Run scraper
+        working-directory: scraper
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           TZ: America/Chicago
-        run: node scraper/scrape.js
+        run: node scrape.js
+
